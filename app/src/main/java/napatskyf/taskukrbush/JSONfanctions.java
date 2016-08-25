@@ -17,6 +17,7 @@ public class JSONfanctions  {
 
     public static  JSONArray getJsonArray(String URI) throws IOException, JSONException {
         String line = "";
+        String g = "";
         JSONArray jsonArray = null;
 
         URL url;
