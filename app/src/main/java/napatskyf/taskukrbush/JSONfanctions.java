@@ -13,11 +13,10 @@ import java.net.URL;
 /**
  * Created by SERVER 1C 8 hlib on 17.08.2016.
  */
-public class JSONfanctions  {
+public class JSONfanctions {
 
-    public static  JSONArray getJsonArray(String URI) throws IOException, JSONException {
+    public static JSONArray getJsonArray(String URI) throws IOException, JSONException {
         String line = "";
-        String step ="";
         JSONArray jsonArray = null;
 
         URL url;

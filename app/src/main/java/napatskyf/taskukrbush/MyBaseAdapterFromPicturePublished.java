@@ -60,8 +60,7 @@ public class MyBaseAdapterFromPicturePublished extends BaseAdapter {
         textView.setText((String) getItem(i).get(PicturesPublished.TAG_TEXT_IMAGE));
 
 
-
-        new DownloadImage(imageView).execute((String) getItem(i).get(PicturesPublished.TAG_IMAGE));
+        new DownloadImage(imageView).execute((String) getItem(i).get(PicturesPublishedFragment.TAG_IMAGE));
 
         return view;
     }

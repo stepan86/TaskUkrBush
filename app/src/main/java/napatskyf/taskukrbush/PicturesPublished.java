@@ -30,22 +30,23 @@ public class PicturesPublished extends MainActivity {
     ProgressDialog progressDialog;
     ListView listViewImagePublisd;
     TextView textViewImegeText;
-    ArrayList<HashMap<String,String>> arrayList;
+    ArrayList<HashMap<String, String>> arrayList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pictures_published);
-        URI =  getIntent().getExtras().getString("URI");
+        URI = getIntent().getExtras().getString("URI");
         DownloadTask downloadTask = new DownloadTask();
         listViewImagePublisd = (ListView) findViewById(R.id.listViewPicturesPublished);
-        textViewImegeText    = (TextView) findViewById(R.id.textViewImageText);
+        textViewImegeText = (TextView) findViewById(R.id.textViewImageText);
         downloadTask.execute();
     }
 
-    class DownloadTask extends AsyncTask<Void,Void,ArrayList> {
+    class DownloadTask extends AsyncTask<Void, Void, ArrayList> {
         @Override
         protected void onPreExecute() {
-           progressDialog = new ProgressDialog(PicturesPublished.this);
+            progressDialog = new ProgressDialog(PicturesPublished.this);
             progressDialog.setMessage("Please wiat ... ");
             progressDialog.show();
             super.onPreExecute();
@@ -64,14 +65,14 @@ public class PicturesPublished extends MainActivity {
                 e.printStackTrace();
             }
 
-            for (int i = 0; i < jsonArray.length() ; i++) {
+            for (int i = 0; i < jsonArray.length(); i++) {
                 try {
-                    HashMap<String,String> hashMap = new HashMap<>();
+                    HashMap<String, String> hashMap = new HashMap<>();
                     jsonObject = jsonArray.getJSONObject(i);
                     String image = jsonObject.getString(TAG_IMAGE);
                     String title = jsonObject.getString(TAG_TEXT_IMAGE);
-                    hashMap.put(TAG_IMAGE,image);
-                    hashMap.put(TAG_TEXT_IMAGE,title);
+                    hashMap.put(TAG_IMAGE, image);
+                    hashMap.put(TAG_TEXT_IMAGE, title);
                     arrayList.add(hashMap);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -84,9 +85,9 @@ public class PicturesPublished extends MainActivity {
         @Override
         protected void onPostExecute(ArrayList arrayList) {
             super.onPostExecute(arrayList);
-            String[] from = {TAG_IMAGE,TAG_TEXT_IMAGE};
-            int[] to      = {R.id.imagPublisher,R.id.textViewImageText};
-            BaseAdapter baseAdapter = new MyBaseAdapterFromPicturePublished(PicturesPublished.this,arrayList);
+            String[] from = {TAG_IMAGE, TAG_TEXT_IMAGE};
+            int[] to = {R.id.imagPublisher, R.id.textViewImageText};
+            BaseAdapter baseAdapter = new MyBaseAdapterFromPicturePublished(PicturesPublished.this, arrayList);
             listViewImagePublisd.setAdapter(baseAdapter);
             progressDialog.dismiss();
         }

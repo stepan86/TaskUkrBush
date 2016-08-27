@@ -34,7 +34,7 @@ public class PicturesPublishedFragment extends Fragment {
     ProgressDialog progressDialog;
     ListView listViewImagePublisd;
     TextView textViewImegeText;
-    ArrayList<HashMap<String,String>> arrayList;
+    ArrayList<HashMap<String, String>> arrayList;
     View rootView;
 
     public PicturesPublishedFragment(String URI) {
@@ -44,9 +44,9 @@ public class PicturesPublishedFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.pictures_published,container,false);
+        rootView = inflater.inflate(R.layout.pictures_published, container, false);
         listViewImagePublisd = (ListView) rootView.findViewById(R.id.listViewPicturesPublished);
-        textViewImegeText    = (TextView) rootView.findViewById(R.id.textViewImageText);
+        textViewImegeText = (TextView) rootView.findViewById(R.id.textViewImageText);
         new DownloadTask().execute();
 
         listViewImagePublisd.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -58,7 +58,7 @@ public class PicturesPublishedFragment extends Fragment {
         return rootView;
     }
 
-    class DownloadTask extends AsyncTask<Void,Void,ArrayList> {
+    class DownloadTask extends AsyncTask<Void, Void, ArrayList> {
         @Override
         protected void onPreExecute() {
             progressDialog = new ProgressDialog(rootView.getContext());
@@ -80,14 +80,14 @@ public class PicturesPublishedFragment extends Fragment {
                 e.printStackTrace();
             }
 
-            for (int i = 0; i < jsonArray.length() ; i++) {
+            for (int i = 0; i < jsonArray.length(); i++) {
                 try {
-                    HashMap<String,String> hashMap = new HashMap<>();
+                    HashMap<String, String> hashMap = new HashMap<>();
                     jsonObject = jsonArray.getJSONObject(i);
                     String image = jsonObject.getString(TAG_IMAGE);
                     String title = jsonObject.getString(TAG_TEXT_IMAGE);
-                    hashMap.put(TAG_IMAGE,image);
-                    hashMap.put(TAG_TEXT_IMAGE,title);
+                    hashMap.put(TAG_IMAGE, image);
+                    hashMap.put(TAG_TEXT_IMAGE, title);
                     arrayList.add(hashMap);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -99,9 +99,9 @@ public class PicturesPublishedFragment extends Fragment {
         @Override
         protected void onPostExecute(ArrayList arrayList) {
             super.onPostExecute(arrayList);
-            String[] from = {TAG_IMAGE,TAG_TEXT_IMAGE};
-            int[] to      = {R.id.imagPublisher,R.id.textViewImageText};
-            BaseAdapter baseAdapter = new MyBaseAdapterFromPicturePublished(rootView.getContext(),arrayList);
+            String[] from = {TAG_IMAGE, TAG_TEXT_IMAGE};
+            int[] to = {R.id.imagPublisher, R.id.textViewImageText};
+            BaseAdapter baseAdapter = new MyBaseAdapterFromPicturePublished(rootView.getContext(), arrayList);
             listViewImagePublisd.setAdapter(baseAdapter);
             progressDialog.dismiss();
         }
